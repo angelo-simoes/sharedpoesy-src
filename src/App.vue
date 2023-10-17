@@ -5,7 +5,7 @@ import PocketBase from "pocketbase";
 
 <template>
   <header>
-    <router-link to="/">Go to Home</router-link>
+    <router-link to="/">Go too Home</router-link>
     <img
       alt="Logo"
       class="logo"
@@ -24,7 +24,8 @@ import PocketBase from "pocketbase";
       /><br />
       <label>password: </label><br />
       <input type="password" required id="passwd" /><br />
-      <button v-on:click="login()">Sign In</button>
+      <button v-on:click="login()">Sign In Github</button>
+      <button v-on:click="github()">Sign In with Github</button>
       <button v-on:click="add()">Add</button>
       <p><label id="status"> You are not yet connected </label><br /></p>
     </div>
@@ -48,11 +49,19 @@ export default {
     async login() {
       await pb.collection("users").authWithOAuth2({ provider: "google" });
       if (pb.authStore.isValid) {
-        document.getElementById("status").innerHTML = "You are now logged in";
+        document.getElementById("status").innerHTML = "You are now logged in with Google";
         connected = true;
         currentUser=pb.authStore.model;
       }
-    }/*,
+    },
+      async github() {
+      await pb.collection("users").authWithOAuth2({ provider: "github" });
+      if (pb.authStore.isValid) {
+        document.getElementById("status").innerHTML = "You are now logged in with Github";
+        connected = true;
+        currentUser=pb.authStore.model;
+      }
+    }/*
     async add() {
       const record = await pb.collection("poems").create({
         title: "good year",

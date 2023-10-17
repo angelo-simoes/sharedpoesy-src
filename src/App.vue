@@ -5,7 +5,7 @@ import PocketBase from "pocketbase";
 
 <template>
   <header>
-    <router-link to="/">Go too Home</router-link>
+    <router-link to="/">Go to Home</router-link>
     <img
       alt="Logo"
       class="logo"
@@ -26,6 +26,7 @@ import PocketBase from "pocketbase";
       <input type="password" required id="passwd" /><br />
       <button v-on:click="login()">Sign In Github</button>
       <button v-on:click="github()">Sign In with Github</button>
+      <button v-on:click="logout()">Log Out</button>
       <button v-on:click="add()">Add</button>
       <p><label id="status"> You are not yet connected </label><br /></p>
     </div>
@@ -46,6 +47,10 @@ export default {
   methods: {
     //this method allows a new user to sign up the system. Once done, the user receives an email
     //asking for account validation. Once the validation made the user is added to the system
+    async logout() {
+      await pb.authStore.clear();
+      document.getElementById("status").innerHTML = "You are now logged out";
+    },
     async login() {
       await pb.collection("users").authWithOAuth2({ provider: "google" });
       if (pb.authStore.isValid) {

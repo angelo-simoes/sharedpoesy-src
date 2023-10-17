@@ -24,7 +24,7 @@ import PocketBase from "pocketbase";
       /><br />
       <label>password: </label><br />
       <input type="password" required id="passwd" /><br />
-      <button v-on:click="login()">Sign In Github</button>
+      <button v-on:click="login()">Sign In Google</button>
       <button v-on:click="github()">Sign In with Github</button>
       <button v-on:click="logout()">Log Out</button>
       <button v-on:click="add()">Add</button>
